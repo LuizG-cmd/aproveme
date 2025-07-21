@@ -1,0 +1,20 @@
+meta {
+  name: Create Assignor
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:3000/integrations/assignor
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "document": "42224425587",
+    "email": "outlook@outlook.com.br",
+    "phone": "4002-8922",
+    "name": "Zezinho do teste"
+  }
+}

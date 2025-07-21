@@ -1,0 +1,23 @@
+meta {
+  name: Update Payable
+  type: http
+  seq: 2
+}
+
+patch {
+  url: http://127.0.0.1:3000/integrations/payable/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 908f8ffe-13c1-415f-9630-e0dc236008d1
+}
+
+body:json {
+  {
+    "value":48,
+    "emissionDate":"10-07-2025",
+    "assignorId": "d3487c77-80d7-436d-9e1e-2c7eceab713c"
+  }
+}

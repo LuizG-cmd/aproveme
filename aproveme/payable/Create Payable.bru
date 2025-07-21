@@ -1,0 +1,19 @@
+meta {
+  name: Create Payable
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://127.0.0.1:3000/integrations/payable
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "value":25,
+    "emissionDate":"01-07-2025",
+    "assignorId": "d3487c77-80d7-436d-9e1e-2c7eceab713c"
+  }
+}

@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Assignor {
+  id       String    @id @default(uuid())
+  document String
+  email    String
+  phone    String
+  name     String
+  payable  Payable[]
+}
+
+model Payable {
+  id           String   @id @default(uuid())
+  value        Float
+  emissionDate DateTime
+  assignorId   String
+  Assignor     Assignor @relation(fields: [assignorId], references: [id])
+}
+
+model User {
+  id       String @id @default(uuid())
+  login    String
+  password String
+}
