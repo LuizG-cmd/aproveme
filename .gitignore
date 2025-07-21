@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 # compiled output
 /dist
 /node_modules
 /build
-=======
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
->>>>>>> fbd5eac8e8af146048327d485ca26211aa8eeadf
 
 # Logs
 logs
@@ -20,7 +12,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-<<<<<<< HEAD
 # OS
 .DS_Store
 
@@ -50,18 +41,10 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
-=======
-# dotenv environment variable files
-.env
-.env.development
-.env.test
-.env.production
->>>>>>> fbd5eac8e8af146048327d485ca26211aa8eeadf
 
 # temp directory
 .temp
 .tmp
-<<<<<<< HEAD
 
 # Runtime data
 pids
@@ -73,5 +56,3 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
-=======
->>>>>>> fbd5eac8e8af146048327d485ca26211aa8eeadf
