@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { AssignorService } from './assignor.service';
 import { CreateAssignorDto } from './dto/create-assignor.dto';
 import { UpdateAssignorDto } from './dto/update-assignor.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller()
 export class AssignorController {
@@ -12,6 +21,7 @@ export class AssignorController {
     return this.assignorService.create(createAssignorDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get('integrations/assignors')
   findAll() {
     return this.assignorService.findAll();

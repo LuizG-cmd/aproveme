@@ -6,10 +6,14 @@ import {
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { PrismaService } from 'src/prisma.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
 
   async create(createAuthDto: CreateAuthDto) {
     const { login, password } = createAuthDto;
@@ -34,8 +38,12 @@ export class AuthService {
 
     if (!findUser || findUser?.password !== password) {
       throw new UnauthorizedException('User not found');
-    } else {
-      return { message: 'Success login', user: findUser.id };
     }
+
+    const payload = { findUser: findUser };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload.findUser.id),
+    };
   }
 }
