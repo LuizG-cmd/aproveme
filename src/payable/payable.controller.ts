@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
 import { PayableService } from './payable.service';
 import { CreatePayableDto } from './dto/create-payable.dto';
 import { UpdatePayableDto } from './dto/update-payable.dto';
+import { BatchCreateDto } from './batch/batch.queue.dto';
 
 @Controller()
 export class PayableController {
@@ -10,6 +11,11 @@ export class PayableController {
   @Post('integrations/payable')
   create(@Body() createPayableDto: CreatePayableDto) {
     return this.payableService.create(createPayableDto);
+  }
+
+  @Post('integrations/payable/batch')
+  createBatch(@Body() createBatchDto: BatchCreateDto) {
+    return this.payableService.createBatch(createBatchDto);
   }
 
   @Get('integrations/payables')
