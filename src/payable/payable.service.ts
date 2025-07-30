@@ -20,15 +20,21 @@ export class PayableService {
   ) {}
 
   async create(data: CreatePayableDto): Promise<Payable> {
-    const { value, emissionDate, assignorId } = data;
+    try {
+      const { value, emissionDate, assignorId } = data;
 
-    if (!value || !emissionDate || !assignorId) {
-      throw new BadRequestException('Is required');
+      if (!value || !emissionDate || !assignorId) {
+        throw new BadRequestException('Is required');
+      }
+
+      const payable = await this.prisma.payable.create({
+        data: { value, emissionDate: new Date(emissionDate), assignorId },
+      });
+
+      return payable;
+    } catch (error) {
+      throw new error(error.stack);
     }
-
-    return await this.prisma.payable.create({
-      data: { value, emissionDate: new Date(emissionDate), assignorId },
-    });
   }
 
   createBatch(data: BatchCreateDto) {
@@ -81,7 +87,29 @@ export class PayableService {
         data: { value, emissionDate: new Date(emissionDate), assignorId },
       });
 
-      return updatePayable;
+      return { message: 'Payable updated', Payable: updatePayable.id };
+    }
+  }
+
+  async softDelete(id: string) {
+    const findAssignor = await this.prisma.payable.findUnique({
+      where: { id },
+    });
+
+    if (!findAssignor) {
+      throw new BadRequestException('Payable not found');
+    } else {
+      const deletePayable = await this.prisma.payable.update({
+        where: { id },
+        data: {
+          deletedAt: new Date(),
+        },
+      });
+
+      return {
+        message: 'Payable deleted',
+        PayableID: deletePayable.id,
+      };
     }
   }
 }

@@ -14,6 +14,7 @@ model Assignor {
   email    String
   phone    String
   name     String
+  deletedAt DateTime?
   payable  Payable[]
 }
 
@@ -21,6 +22,7 @@ model Payable {
   id           String   @id @default(uuid())
   value        Float
   emissionDate DateTime
+  deletedAt DateTime?
   assignorId   String
   Assignor     Assignor @relation(fields: [assignorId], references: [id])
 }
@@ -29,4 +31,5 @@ model User {
   id       String @id @default(uuid())
   login    String
   password String
+  deletedAt DateTime?
 }

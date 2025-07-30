@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { PayableService } from './payable.service';
 import { CreatePayableDto } from './dto/create-payable.dto';
 import { UpdatePayableDto } from './dto/update-payable.dto';
@@ -16,6 +24,11 @@ export class PayableController {
   @Post('integrations/payable/batch')
   createBatch(@Body() createBatchDto: BatchCreateDto) {
     return this.payableService.createBatch(createBatchDto);
+  }
+
+  @Delete('integrations/payable/:id')
+  removePayable(@Param('id') id: string) {
+    return this.payableService.softDelete(id);
   }
 
   @Get('integrations/payables')

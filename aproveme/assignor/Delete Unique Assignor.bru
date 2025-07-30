@@ -1,0 +1,19 @@
+meta {
+  name: Delete Unique Assignor
+  type: http
+  seq: 7
+}
+
+delete {
+  url: localhost:3000/integrations/assignor/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: ae1de1ea-f699-43fe-85b6-3bf118679172
+}
+
+settings {
+  encodeUrl: true
+}

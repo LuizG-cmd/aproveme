@@ -63,4 +63,27 @@ export class AssignorService {
       return updateAssignor;
     }
   }
+
+  async softDelete(id: string) {
+    try {
+      const findAssignor = await this.prisma.assignor.findUnique({
+        where: { id },
+      });
+
+      if (!findAssignor) {
+        throw new BadRequestException('Assignor not found');
+      }
+
+      const assignor = await this.prisma.assignor.update({
+        where: { id },
+        data: {
+          deletedAt: new Date(),
+        },
+      });
+
+      return assignor;
+    } catch (error) {
+      throw new error(error.stack);
+    }
+  }
 }

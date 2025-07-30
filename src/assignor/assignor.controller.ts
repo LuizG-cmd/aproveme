@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { AssignorService } from './assignor.service';
 import { CreateAssignorDto } from './dto/create-assignor.dto';
@@ -38,5 +39,10 @@ export class AssignorController {
     @Body() updateAssignorDto: UpdateAssignorDto,
   ) {
     return this.assignorService.update(id, updateAssignorDto);
+  }
+
+  @Delete('integrations/assignor/:id')
+  async deleteAssignor(@Param('id') id: string) {
+    await this.assignorService.softDelete(id);
   }
 }

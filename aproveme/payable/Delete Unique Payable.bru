@@ -1,0 +1,19 @@
+meta {
+  name: Delete Unique Payable
+  type: http
+  seq: 6
+}
+
+delete {
+  url: localhost:3000/integrations/payable/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 5a687192-f305-4908-ab48-b776be52cbb0
+}
+
+settings {
+  encodeUrl: true
+}
