@@ -32,8 +32,8 @@ export class PayableService {
       });
 
       return payable;
-    } catch (error) {
-      throw new error(error.stack);
+    } catch (err) {
+      throw new Error('Erro', err);
     }
   }
 

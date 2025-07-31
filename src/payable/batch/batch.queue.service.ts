@@ -26,6 +26,14 @@ export class BatchService {
   private async savePayable(payableData: CreatePayableDto) {
     const { value, emissionDate, assignorId } = payableData;
 
+    /*const findAssignor = await this.prisma.payable.findFirst({
+      where: { assignorId },
+    });
+
+    if (!findAssignor) {
+      throw new BadRequestException('Invalid AssignorID');
+    }*/
+
     await this.prisma.payable.create({
       data: {
         value,
