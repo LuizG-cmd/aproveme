@@ -1,6 +1,7 @@
 import {
   Injectable,
   BadRequestException,
+  InternalServerErrorException,
   NotFoundException,
   Inject,
 } from '@nestjs/common';
@@ -27,13 +28,34 @@ export class PayableService {
         throw new BadRequestException('Is required');
       }
 
+      const assignor = await this.prisma.assignor.findFirst({
+        where: {
+          id: assignorId,
+          deletedAt: null,
+        },
+      });
+
+      if (!assignor) {
+        throw new NotFoundException('Assignor not found or has been deleted');
+      }
+
+      const findAssignorID = await this.prisma.payable.findFirst({
+        where: { assignorId, deletedAt: null },
+      });
+
+      if (!findAssignorID) {
+        throw new NotFoundException('Assignor not exists');
+      }
+
       const payable = await this.prisma.payable.create({
         data: { value, emissionDate: new Date(emissionDate), assignorId },
       });
 
       return payable;
     } catch (err) {
-      throw new Error('Erro', err);
+      throw new InternalServerErrorException(
+        err instanceof Error ? err.message : 'Erro interno inesperado',
+      );
     }
   }
 

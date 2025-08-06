@@ -1,0 +1,460 @@
+{
+  "name": "aproveme",
+  "version": "1",
+  "items": [
+    {
+      "type": "folder",
+      "name": "auth",
+      "filename": "auth",
+      "seq": 3,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "inherit"
+          }
+        },
+        "meta": {
+          "name": "auth",
+          "seq": 3
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "Auth User",
+          "filename": "Auth User.bru",
+          "seq": 2,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/auth",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n \"login\": \"Luiz G.\",\n \"password\":\"teste1231321\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Create New User",
+          "filename": "Create New User.bru",
+          "seq": 1,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/login",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n \"login\": \"Luiz G.\",\n \"password\":\"teste\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "assignor",
+      "filename": "assignor",
+      "seq": 2,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "inherit"
+          }
+        },
+        "meta": {
+          "name": "assignor",
+          "seq": 2
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "Create Assignor",
+          "filename": "Create Assignor.bru",
+          "seq": 1,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/assignor",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"document\": \"45858798058\",\n  \"email\": \"outlook@outlook.org\",\n  \"phone\": \"4002-8922\",\n  \"name\": \"Nicolas Yudji\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Delete Unique Assignor",
+          "filename": "Delete Unique Assignor.bru",
+          "seq": 7,
+          "settings": {
+            "encodeUrl": true
+          },
+          "tags": [],
+          "request": {
+            "url": "localhost:3000/integrations/assignor/:id",
+            "method": "DELETE",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "b2d523b8-3183-49d1-8107-c8442e52d7bd",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Find Assignors",
+          "filename": "Find Assignors.bru",
+          "seq": 2,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/assignors",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.MzhmYTE0ZmQtODg5MS00MDBmLWI0NjQtMDgyODBhNDhhODNk.1K1PN_OdKm-oODXKcdmDaIT2YNWWVO4KOLd5hyHScOQ"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Find Unique Assignor",
+          "filename": "Find Unique Assignor.bru",
+          "seq": 3,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/assignor/:id",
+            "method": "GET",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "d3487c77-80d7-436d-9e1e-2c7eceab713c",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "payable",
+      "filename": "payable",
+      "seq": 2,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "inherit"
+          }
+        },
+        "meta": {
+          "name": "payable",
+          "seq": 2
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "Create Batch",
+          "filename": "Create Batch.bru",
+          "seq": 5,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/payable/batch",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"payables\": [\n    {\n      \"value\": 25,\n      \"emissionDate\": \"01-07-2025\",\n      \"assignorId\": \"0cc3ff00-3afe-42e7-b88f-08bff8be0153\"\n    },\n    {\n      \"value\": 48,\n      \"emissionDate\": \"02-07-2025\",\n      \"assignorId\": \"cb8dd58b-1b38-4323-866a-13a2d3f3cc81\"\n    },\n    {\n      \"value\": 125,\n      \"emissionDate\": \"03-07-2025\",\n      \"assignorId\": \"8992a791-1ac0-416a-bf29-4a9491111f43\"\n    }\n  ]\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Create Payable",
+          "filename": "Create Payable.bru",
+          "seq": 3,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/payable",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"value\":25,\n  \"emissionDate\":\"2025-08-04\",\n  \"assignorId\": \"0cc3ff00-3afe-42e7-b88f-08bff8be0153\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Delete Unique Payable",
+          "filename": "Delete Unique Payable.bru",
+          "seq": 6,
+          "settings": {
+            "encodeUrl": true
+          },
+          "tags": [],
+          "request": {
+            "url": "localhost:3000/integrations/payable/:id",
+            "method": "DELETE",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "5a687192-f305-4908-ab48-b776be52cbb0",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Find All",
+          "filename": "Find All.bru",
+          "seq": 1,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/payables",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Find Unique Payable",
+          "filename": "Find Unique Payable.bru",
+          "seq": 2,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/payable/:id",
+            "method": "GET",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "8992a791-1ac0-416a-bf29-4a9491111f43",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Update Payable",
+          "filename": "Update Payable.bru",
+          "seq": 3,
+          "settings": {},
+          "tags": [],
+          "request": {
+            "url": "http://127.0.0.1:3000/integrations/payable/:id",
+            "method": "PATCH",
+            "headers": [],
+            "params": [
+              {
+                "name": "id",
+                "value": "908f8ffe-13c1-415f-9630-e0dc236008d1",
+                "type": "path",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"value\":48,\n  \"emissionDate\":\"10-07-2025\",\n  \"assignorId\": \"d3487c77-80d7-436d-9e1e-2c7eceab713c\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "aproveme",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.009104728698730469,
+    "filesCount": 15
+  }
+}

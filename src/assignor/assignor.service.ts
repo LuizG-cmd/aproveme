@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateAssignorDto } from './dto/create-assignor.dto';
@@ -14,35 +15,66 @@ export class AssignorService {
   async create(createAssignorDto: CreateAssignorDto) {
     const { document, email, phone, name } = createAssignorDto;
 
-    if (!document || !email || !phone || !name) {
-      throw new BadRequestException('Is required');
+    const existingAssignor = await this.prisma.assignor.findFirst({
+      where: {
+        OR: [{ document }, { email }],
+      },
+    });
+
+    if (existingAssignor) {
+      throw new BadRequestException('Assignor has been exists');
     }
 
-    return await this.prisma.assignor.create({
-      data: { document, email, phone, name },
-    });
+    try {
+      const assignor = await this.prisma.assignor.create({
+        data: { document, email, phone, name },
+      });
+
+      return {
+        Assignor: assignor.id,
+        Email: assignor.email,
+      };
+
+      /*if (!document || !email || !phone || !name) {
+      throw new BadRequestException('Is required');*/
+    } catch {
+      throw new InternalServerErrorException(`Internal server error`);
+    }
   }
 
   async findAll() {
-    const assignor = await this.prisma.assignor.findMany();
+    try {
+      const assignor = await this.prisma.assignor.findMany({
+        where: { deletedAt: null },
+      });
 
-    if (!assignor) {
-      throw new NotFoundException('Assignors not found');
+      if (!assignor) {
+        throw new NotFoundException('Assignors not found');
+      }
+
+      return assignor;
+    } catch (error) {
+      throw new Error(`Internal server error ${error.message}`);
     }
-
-    return assignor;
   }
 
   async findOne(id: string) {
-    const assignor = await this.prisma.assignor.findUnique({
-      where: { id },
-    });
+    try {
+      const assignor = await this.prisma.assignor.findUnique({
+        where: { id },
+      });
 
-    if (!assignor) {
-      throw new NotFoundException(`Assignor ID not found`);
+      if (!assignor) {
+        throw new NotFoundException(`Assignor ID not found`);
+      }
+
+      return assignor;
+    } catch (error) {
+      // Log do erro para observabilidade (em dev ou prod, dependendo da estratégia)
+      console.error('Erro ao criar assignor:', error);
+
+      throw new InternalServerErrorException('Erro ao criar assignor.');
     }
-
-    return assignor;
   }
 
   async update(id: string, updateAssignorDto: UpdateAssignorDto) {
@@ -65,15 +97,15 @@ export class AssignorService {
   }
 
   async softDelete(id: string) {
+    const findAssignor = await this.prisma.assignor.findUnique({
+      where: { id },
+    });
+
+    if (!findAssignor) {
+      throw new NotFoundException('Assignor not found');
+    }
+
     try {
-      const findAssignor = await this.prisma.assignor.findUnique({
-        where: { id },
-      });
-
-      if (!findAssignor) {
-        throw new BadRequestException('Assignor not found');
-      }
-
       const assignor = await this.prisma.assignor.update({
         where: { id },
         data: {
@@ -81,9 +113,13 @@ export class AssignorService {
         },
       });
 
-      return assignor;
+      return { message: 'Assignor excluded', assignorId: assignor.id };
     } catch (error) {
-      throw new error(error.stack);
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      throw new Error(`Internal error deleting assignor: ${error.message}`);
     }
   }
 }

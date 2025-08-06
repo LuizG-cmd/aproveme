@@ -1,14 +1,22 @@
-import { IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsUUID,
+  IsPositive,
+} from 'class-validator';
 
 export class CreatePayableDto {
   @IsNumber()
   @IsNotEmpty({ message: 'Value is required' })
+  @IsPositive({ message: 'The payable value must be positive' })
   value: number;
 
-  @IsDateString({}, { message: 'Emission date is not a valid date' })
+  @IsDateString()
   @IsNotEmpty({ message: 'Emission date is required' })
   emissionDate: Date;
 
   @IsNotEmpty({ message: 'Assignor ID is required' })
+  @IsUUID('4')
   assignorId: string;
 }
